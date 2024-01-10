@@ -1,0 +1,137 @@
+<div class="row">
+    <div class="col-xs-3 col-md-2">
+        <div class="text-center">
+            <button data-complete-button
+                    data-task="task"></button>
+            <button data-timer-button
+                    data-task="task"></button>
+            <button data-edit-button
+                    data-task="task"
+                    data-layout="FULL"
+                    data-size="btn-xs"></button>
+        </div>
+    </div>
+    <div class="col-xs-9 col-md-10">
+        <div class="row">
+            <div class="col-xs-12">
+                <input data-ng-if="task.editing"
+                       data-ng-disabled="task.taskCopy.readOnly"
+                       data-ng-model="task.taskCopy.group"
+                       data-typeahead="group for group in remainingCtrl.getUniqueGroups() | filter:$viewValue | limitTo:8"
+                       title="A group or category to place this task under."
+                       placeholder="Group..."
+                       class="form-control">
+            </div>
+        </div>
+        <div class="row">
+            <div data-ng-if="!task.editing"
+                 class="col-xs-12 col-sm-6">
+                <span data-ng-if="task.timestampDue"
+                      data-ng-bind="task.timestampDue | date:'MMMM dd \'at\' h:mm a'"
+                      class="small"></span>
+                <span data-ng-if="!task.timestampDue"
+                      data-ng-bind="task.timestampCreated | date:'\'Created\' MMMM dd \'at\' h:mm a'"
+                      class="small"></span>
+            </div>
+            <div data-ng-if="task.editing"
+                 class="col-xs-12 col-sm-6">
+                <div data-date-input-field
+                     data-ng-model="task.taskCopy.timestampDue"
+                     data-ng-disabled="task.taskCopy.readOnly"
+                     data-config="datePickerConfig"
+                     data-field-title="The date the task is scheduled."
+                     data-field-placeholder="Date due..."
+                     style="max-width: 275px;"></div>
+            </div>
+            <div class="col-xs-12 col-sm-6 text-right">
+                <div data-ng-if="!task.editing">
+                    Tracked for
+                    <a data-ng-click="remainingCtrl.viewState.isShowingMinutes = !remainingCtrl.viewState.isShowingMinutes"
+                       style="cursor: pointer">
+                    <span data-ng-if="remainingCtrl.viewState.isShowingMinutes"
+                          data-ng-bind="(task.totalTimeTracked | msToMinutes) + ' minutes'"></span>
+                    <span data-ng-if="!remainingCtrl.viewState.isShowingMinutes"
+                          data-ng-bind="(task.totalTimeTracked | msToHours:2) + ' hours'"></span>
+                    </a>
+                </div>
+                <div data-ng-if="task.editing"
+                     data-ng-init="shadowInput.totalTimeTrackedAsMinutes = (task.totalTimeTracked | msToMinutes); shadowInput.totalTimeTrackedAsHours = (task.taskCopy.totalTimeTracked | msToHours:2)">
+                    <div data-ng-if="remainingCtrl.viewState.isShowingMinutes"
+                         class="input-group pull-right"
+                         style="width: 150px;">
+                        <input data-ng-init="shadowInput.totalTimeTrackedAsMinutes = ((shadowInput.totalTimeTrackedAsHours | hoursToMS) | msToMinutes)"
+                               data-ng-disabled="task.taskCopy.readOnly"
+                               data-ng-model="shadowInput.totalTimeTrackedAsMinutes"
+                               data-ng-blur="task.taskCopy.totalTimeTracked = (shadowInput.totalTimeTrackedAsMinutes | minutesToMS)"
+                               maxlength="7"
+                               title="The total time tracked, in minutes."
+                               placeholder="Minutes tracked..."
+                               class="form-control" />
+                               <span data-ng-click="remainingCtrl.viewState.isShowingMinutes = !remainingCtrl.viewState.isShowingMinutes"
+                                     class="input-group-addon"
+                                     style="cursor: pointer">Minutes</span>
+                    </div>
+                    <div data-ng-if="!remainingCtrl.viewState.isShowingMinutes"
+                         class="input-group pull-right"
+                         style="width: 150px;">
+                        <input data-ng-init="shadowInput.totalTimeTrackedAsHours = ((shadowInput.totalTimeTrackedAsMinutes | minutesToMS) | msToHours:2)"
+                               data-ng-disabled="task.taskCopy.readOnly"
+                               data-ng-model="shadowInput.totalTimeTrackedAsHours"
+                               data-ng-blur="task.taskCopy.totalTimeTracked = (shadowInput.totalTimeTrackedAsHours | hoursToMS)"
+                               maxlength="7"
+                               title="The total time tracked, in hours."
+                               placeholder="Hours tracked..."
+                               class="form-control" />
+                    <span data-ng-click="remainingCtrl.viewState.isShowingMinutes = !remainingCtrl.viewState.isShowingMinutes"
+                          class="input-group-addon"
+                          style="cursor: pointer">Hours</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                    <span data-ng-if="!task.editing"
+                          data-ng-bind="task.name"
+                          class="task-name"
+                          data-ng-class="{'task-highlighted':task.tracking}"></span>
+                    <input data-ng-if="task.editing"
+                           data-ng-disabled="task.taskCopy.readOnly"
+                           data-ng-model="task.taskCopy.name"
+                           title="The name of the task."
+                           placeholder="Task Name (required)..."
+                           class="form-control">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                <span data-ng-if="!task.editing"
+                      data-ng-bind-html="remainingCtrl.trustHTML(task.description)"
+                      data-ng-class="{'task-highlighted':task.tracking}"></span>
+                <textarea data-ng-if="task.editing"
+                          data-ng-disabled="task.taskCopy.readOnly"
+                          data-ng-model="task.taskCopy.description"
+                          title="A short description of the task."
+                          placeholder="Description"
+                          class="form-control"></textarea>
+            </div>
+        </div>
+        <div data-subtasks
+             data-ng-if="!task.editing && task.subtasks"
+             data-parent-task="task"
+             data-ng-disabled="task.readOnly"></div>
+        <div data-subtasks
+             data-ng-if="task.editing"
+             data-parent-task="task.taskCopy"
+             data-ng-disabled="task.readOnly"></div>
+        <div data-tags
+             data-ng-if="!task.editing"
+             data-task="task"
+             data-tags-to-filter-by="remainingCtrl.viewState.tagsToFilterBy"></div>
+        <div data-tags
+             data-ng-if="task.editing"
+             data-task="task.taskCopy"
+             data-tags-to-filter-by="remainingCtrl.viewState.tagsToFilterBy"
+             data-used-tags="remainingCtrl.usedTags"></div>
+    </div>
+</div>

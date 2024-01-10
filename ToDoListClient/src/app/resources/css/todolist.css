@@ -1,0 +1,215 @@
+@import url(http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,700italic,300,400,700);
+
+.navbar {
+    border: none;
+    background-color: rgba(0, 0, 0, 0.6);
+}
+
+.navbar .navbar-header .navbar-toggle .icon-bar {
+    color: #DDD;
+}
+.navbar-default .navbar-brand, .navbar-default .navbar-nav li a, .navbar-default .navbar-text {
+    color: #DDD;
+}
+.navbar-default .navbar-brand:hover, .navbar-default .navbar-nav li a:hover, .navbar-text a:hover {
+    color: red;
+    transition: 0.3s all;
+}
+.navbar-default .navbar-brand, .navbar-default .navbar-nav li a, .navbar-default .navbar-text a {
+    color: #DDD;
+    transition: 0.3s all;
+}
+
+.splash-jumbotron h1, .splash-jumbotron h3 {
+    background-color: rgba(0, 0, 0, 0.6);
+    color: #DDD;
+    padding: 0.5em;
+}
+
+.splash-jumbotron {
+    background-image: url('../images/person-time.jpg');
+    background-size: cover;
+    background-position: bottom;
+}
+
+.splash-jumbotron button {
+    background-color: rgba(0,0,0,0.6);
+    color: #DDD;
+}
+
+.splash-jumbotron button:hover {
+    background-color: #DDD;
+    color: black;
+    transition: all 0.3s;
+}
+.splash-jumbotron input {
+    background-color: rgba(0,0,0,0.6);
+    color: #DDD;
+}
+
+.splash-jumbotron input:hover {
+    transition: all 0.3s;
+}
+
+
+.splash-description {
+    font-size: 1.2em;
+}
+
+body {
+    /*padding-top: 50px;*/
+    font-family: 'Open Sans', sans-serif;
+}
+
+
+.task-highlighted {
+    color: red;
+    font-weight: bold;
+}
+
+.icon-button {
+    padding: 0;
+}
+
+.btn-success-outline {
+    border-color: #449D44;
+    color: #449D44;
+    transition: all 0.2s;
+}
+
+.btn-success-outline:hover {
+    border-color: white;
+    color: white;
+    background-color: #449D44;
+    transition: all 0.2s;
+}
+
+.btn-primary-outline {
+    border-color: #2A6496;
+    color: #2A6496;
+}
+
+.btn-primary-outline:hover {
+    border-color: white;
+    color: white;
+    background-color: #2A6496;
+    transition: all 0.2s;
+}
+
+.btn-danger-outline {
+    border-color: #AC2925;
+    color: #AC2925;
+}
+
+.btn-danger-outline:hover {
+    border-color: white;
+    color: white;
+    background-color: #AC2925;
+    transition: all 0.2s;
+}
+
+.btn-stop:hover {
+    border-color: white;
+    color: white;
+    background-color: #449D44;
+    transition: all 0.2s;
+}
+
+
+.btn-edit {
+}
+
+.complete-button {
+    color: #5CB85C;
+}
+.complete-button:hover {
+    color: #449D44;
+}
+.delete-button {
+    color: #D9534F;
+}
+.delete-button:hover {
+    color: #C9302C;
+}
+
+.task-tag {
+    margin-top: 0.5em;
+    margin-right: 0.5em;
+    color: gray;
+    background-color: white;
+    border: 1px gray solid;
+}
+
+.task-tag button {
+    color: gray;
+}
+
+.task-tag-inactive {
+}
+.task-tag-active {
+    background-color: #D58512;
+    border-color: white;
+    color: white;
+}
+
+.task-name {
+    font-size: 1.2em;
+    word-wrap: break-word;
+    word-break: break-all;
+}
+.task-group {
+    word-wrap: break-word;
+    word-break: break-all;
+}
+
+.task-group-heading {
+    margin-top: 0;
+    margin-bottom: 0.5em;
+    border-bottom: 1px black solid;
+}
+
+.task-group-separator {
+    margin-bottom: 1.5em;
+}
+
+.hr-small {
+    margin-top: 8px;
+    margin-bottom: 8px;
+}
+
+td {
+    word-wrap: break-word;
+    word-break: break-all;
+}
+
+.alert {
+    margin-bottom: 0;
+    padding-top: 4px;
+    padding-bottom: 4px;
+}
+
+.visibility-hidden {
+    visibility: hidden;
+}
+
+.navigation-active {
+    border-bottom: 1px solid red;
+}
+
+.navbar-link {
+    text-decoration: underline;
+}
+
+.application-description {
+    font-size: 1.2em;
+}
+
+.subheader {
+    border-bottom: 1px solid black;
+}
+
+/**
+ * Calendar
+ */
+.calendar-badge-today {
+}

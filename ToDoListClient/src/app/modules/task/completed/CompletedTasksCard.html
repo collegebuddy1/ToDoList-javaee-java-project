@@ -1,0 +1,44 @@
+<div class="row">
+    <div class="col-xs-3 col-md-2">
+        <div class="text-center">
+            <button data-complete-button
+                    data-task="task"></button>
+            <button data-delete-button
+                    data-task="task"
+                    data-size="btn-xs"></button>
+        </div>
+    </div>
+    <div class="col-xs-9 col-md-10">
+        <div class="row">
+            <div class="col-xs-6">
+                <span data-ng-bind="task.timestampCompleted| date:'\'Completed\' MMMM dd \'at\' h:mma'"
+                                class="small"></span>
+            </div>
+            <div class="col-xs-6 text-right">
+                Tracked for
+                <a data-ng-click="completedCtrl.viewState.isShowingMinutes = !completedCtrl.viewState.isShowingMinutes"
+                   style="cursor: pointer">
+                    <span data-ng-if="completedCtrl.viewState.isShowingMinutes"
+                          data-ng-bind="(task.totalTimeTracked | msToMinutes) + ' minutes'"></span>
+                    <span data-ng-if="!completedCtrl.viewState.isShowingMinutes"
+                          data-ng-bind="(task.totalTimeTracked | msToHours:2) + ' hours'"></span>
+                </a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                    <span data-ng-bind="task.name"
+                          class="task-name"
+                          data-ng-class="{'task-highlighted':task.tracking}"></span>
+            </div>
+        </div>
+        <div data-subtasks
+             data-ng-if="task.subtasks"
+             data-parent-task="task"
+             data-hide-buttons="true"
+             data-ng-disabled="task.readOnly"></div>
+        <div data-tags
+             data-task="task"
+             data-tags-to-filter-by="completedCtrl.viewState.tagsToFilterBy"></div>
+    </div>
+</div>

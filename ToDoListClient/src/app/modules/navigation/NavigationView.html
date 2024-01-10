@@ -1,0 +1,30 @@
+<!--
+author: Joseph Gefroh
+-->
+<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" data-ng-href="#/splash/{{navigation.user.id}}">{{ navigation.applicationName }} <span class="small">{{ navigation.versionNumber }}</span></a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                <li data-ng-class="{'navigation-active':navigation.isActive('/remaining')}"><a data-ng-href="#/remaining/{{navigation.user.id}}"><span class="fa fa-list-ol"></span> Remaining </a></li>
+                <li data-ng-class="{'navigation-active':navigation.isActive('/completed')}"><a data-ng-href="#/completed/{{navigation.user.id}}"><span class="fa fa-check"></span> Completed </a></li>
+                <li data-ng-class="{'navigation-active':navigation.isActive('/planner')}"><a data-ng-href="#/planner/calendar/{{navigation.user.id}}"><span class="fa fa-calendar"></span> Planner</a></li>
+                <li data-ng-class="{'navigation-active':navigation.isActive('/statistics')}"><a data-ng-href="#/statistics/{{navigation.user.id}}"><span class="fa fa-bar-chart"></span> Stats</a></li>
+            </ul>
+            <p class="navbar-text pull-right hidden-sm">
+                Created by <a href="http://www.jgefroh.com" class="navbar-link">Joseph Gefroh</a>
+            </p>
+        </div>
+    </div>
+</nav>

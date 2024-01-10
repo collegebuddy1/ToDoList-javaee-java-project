@@ -1,0 +1,40 @@
+<table class="table table-bordered table-condensed">
+    <tr>
+        <th>Task</th>
+    </tr>
+    <tr data-ng-repeat="task in calendarCtrl.unscheduledTasks = (calendarCtrl.tasks | filter:calendarCtrl.isUnscheduledTask | tagFilter:calendarCtrl.viewState.tagsToFilterBy )">
+        <td data-ng-class="{'success': task.complete, 'warning' : !task.complete}">
+            <div class="pull-right">
+                <button data-edit-button-compact
+                        data-task="task"
+                        data-size="btn-sm"
+                        style="float:left;"></button>
+            </div>
+            <br/>
+            <div data-ng-if="task.editing">
+                <div data-date-input-field
+                     data-ng-model="task.taskCopy.timestampDue"
+                     data-ng-disabled="task.taskCopy.readOnly"
+                     data-config="datePickerConfig"
+                     data-field-title="The date the task is scheduled."
+                     data-field-placeholder="Date due..."
+                     style="max-width: 275px;"></div>
+            </div>
+            <span data-ng-if="!task.editing"
+                  data-ng-bind="task.name"
+                  class="task-name"></span>
+            <input data-ng-if="task.editing"
+                   data-ng-disabled="task.taskCopy.readOnly"
+                   data-ng-model="task.taskCopy.name"
+                   title="The name of the task."
+                   placeholder="Task Name (required)..."
+                   class="form-control">
+            <div data-tag-display
+                 data-tags-to-display="task.tags"
+                 data-tags-to-filter-by="calendarCtrl.viewState.tagsToFilterBy"></div>
+        </td>
+    </tr>
+    <tr data-ng-repeat-end></tr>
+</table>
+<h3 data-ng-if="calendarCtrl.unscheduledTasks.length === 0"
+    class="text-center">You have no unscheduled tasks.</h3>

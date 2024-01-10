@@ -1,0 +1,84 @@
+<div class="container">
+    <div class="row">
+        <div class="col-xs-12">
+            <h3>Calendar<span class="small"> - a breakdown of tasks by date</span></h3>
+        </div>
+    </div>
+    <div data-ng-if="!calendarCtrl.operations.getTasks.status">
+        <div class="well">
+            <div class="row">
+                <div class="col-xs-12 col-md-5">
+                    <div class="form-group">
+                        <label>New Task</label>
+                        <input data-ng-model="calendarCtrl.viewState.input.name"
+                               data-ng-disabled="calendarCtrl.operations.addTask.status === 'LOADING'"
+                               class="form-control input-lg"
+                               maxlength="500"/>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-md-4">
+                    <div class="form-group">
+                        <label>Due Date</label>
+                        <div data-date-input-field
+                             data-ng-model="calendarCtrl.viewState.input.timestampDue"
+                             data-is-disabled="calendarCtrl.operations.addTask.status === 'LOADING'"
+                             data-config="datePickerConfig"
+                             data-field-title="The date to schedule the task."
+                             data-field-placeholder="Date due..."
+                             data-input-size-class="input-lg"
+                             data-button-size-class="btn-lg"></div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-md-3">
+                    <button class="btn btn-default btn-success-outline inline-button btn-lg"
+                            data-ng-click="calendarCtrl.addTask(calendarCtrl.viewState.input)"
+                            data-ng-disabled="calendarCtrl.operations.addTask.status === 'LOADING'"
+                            title="Add a new task to the To Do List."
+                            style="margin-top: 24px;">
+                        <span data-ng-if="calendarCtrl.operations.addTask.status !== 'LOADING'" class="fa fa-plus"></span>
+                        <span data-ng-if="calendarCtrl.operations.addTask.status === 'LOADING'" class="fa fa-spin fa-spinner"></span>
+                        Add Task
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                <label>Tags:</label>
+                <div data-tag-display
+                     data-tags-to-display="calendarCtrl.usedTags"
+                     data-tags-to-filter-by="calendarCtrl.viewState.tagsToFilterBy"></div>
+
+                <h3 data-ng-bind="calendarCtrl.viewState.selectedDate | date: 'MMMM yyyy'"
+                    class="text-center"></h3>
+                <div data-date-selector
+                     data-view-state="calendarCtrl.viewState"
+                     data-api="calendarCtrl.dateSelectorAPI"
+                     data-on-change="calendarCtrl.loadDatesOfMonth(calendarCtrl.viewState.selectedDate)"></div>
+                <button data-ng-click="calendarCtrl.viewState.isShowingScheduled = !calendarCtrl.viewState.isShowingScheduled"
+                        class="btn btn-xs btn-link pull-right">
+                    <span data-ng-if="!calendarCtrl.viewState.isShowingScheduled">Show Scheduled Tasks</span>
+                    <span data-ng-if="calendarCtrl.viewState.isShowingScheduled">Show Unscheduled Tasks</span>
+                </button>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div data-ng-if="calendarCtrl.viewState.isShowingScheduled"
+                             data-ng-include data-src="'modules/task/planner/calendar/ScheduledTasksTable.html'"></div>
+                        <div data-ng-if="!calendarCtrl.viewState.isShowingScheduled"
+                             data-ng-include data-src="'modules/task/planner/calendar/UnscheduledTasksTable.html'"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <h3 data-ng-if="calendarCtrl.operations.getTasks.status === 'LOADING'"
+            class="text-center">
+            <span class="fa fa-spin fa-spinner"></span> Loading calendar...
+        </h3>
+        <h3 data-ng-if="calendarCtrl.operations.getTasks.status === 'ERROR'"
+            class="text-center">
+            A server error occurred while loading the calendar.
+        </h3>
+    </div>
+</div>
